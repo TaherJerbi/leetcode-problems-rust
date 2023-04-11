@@ -58,42 +58,35 @@ impl Solution {
     }
 
     pub fn add_two_numbers_rec(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>, carry: i32) -> Option<Box<ListNode>> {
+        match (l1,l2) {
+          (None, None) => {
+            if carry > 0 {
+              return Some(Box::new(ListNode::new(carry)));
+            } else {
+              return None;
+            }
+          }
+            (None, Some(list)) | (Some(list), None) => {
+              let n = list.val + carry;
+              let result = n % 10;
+              let carry = n / 10;
+              return Some (Box::new(ListNode { 
+                val: result,
+                next: Solution::add_two_numbers_rec(list.next, None, carry)
+              }));
+            },
+            (Some(list1), Some(list2)) => {
+              let n = list1.val + list2.val + carry;
+              let result = n % 10;
+              let carry = n / 10;
 
-      if let Some(list1) = l1 {
-        if let Some(list2) = l2 {
-          // list1 , list2 = SOME
-          let n = list1.val + list2.val + carry;
-
-          let result = n % 10;
-          let carry = n / 10;
-
-          return Some(Box::new(ListNode { val: result, next: Solution::add_two_numbers_rec(list1.next, list2.next, carry) }))
-
-        } else {
-          // list1 = SOME, list2 = NONE
-          let n = list1.val + carry;
-          let result = n % 10;
-          let carry = n / 10;
-
-          return Some(Box::new(ListNode { val: result, next: Solution::add_two_numbers_rec(list1.next, None,carry) }))
+              return Some (Box::new(ListNode { 
+                val: result,
+                next: Solution::add_two_numbers_rec(list1.next, list2.next, carry)
+              }));
+            },
         }
-      } else if let Some(list2) = l2 {
-        // list1 = NONE, list2 = SOME
-        let n = list2.val + carry;
-          let result = n % 10;
-          let carry = n / 10;
-
-          return Some(Box::new(ListNode { val: result, next: Solution::add_two_numbers_rec(list2.next, None,carry) }))
-        
-    } else {
-      // list1, list2 = NONE
-      if carry > 0 {
-        return Some(Box::new(ListNode::new(carry)));
-      } else {
-        None
-      }
     }
-  }
 }
 
 #[cfg(test)]
