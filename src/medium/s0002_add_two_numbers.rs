@@ -1,6 +1,4 @@
-use std::fmt::Display;
-
-struct Solution {}
+pub struct Solution {}
 // Definition for singly-linked list.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
@@ -10,7 +8,7 @@ pub struct ListNode {
 
 impl ListNode {
   #[inline]
-  fn new(val: i32) -> Self {
+  pub fn new(val: i32) -> Self {
         ListNode {
             next: None,
             val
@@ -20,7 +18,7 @@ impl ListNode {
     self.next = Some(Box::new(ListNode::new(val)));
   }
 
-  fn from(numbers: &[i32]) -> Option<Self> {
+  pub fn from(numbers: &[i32]) -> Option<Self> {
     if numbers.len() == 0 { return None } 
 
     let mut root = ListNode::new(*numbers.get(0).unwrap()); 
