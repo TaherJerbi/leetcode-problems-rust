@@ -7,3 +7,5 @@ pub mod s0026_remove_duplicates_from_sorted_array;
 pub mod s0027_remove_element;
 pub mod s0021_merge_two_sorted_lists;
 pub mod s0028_str_str;
+pub mod s0066_plus_one;
+
